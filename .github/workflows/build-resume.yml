@@ -29,22 +29,6 @@ jobs:
     - name: Upload PDF as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: resume
+        name: resume-pdf
         path: resume.pdf
         retention-days: 30
-    
-    - name: Create Release
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: v${{ github.run_number }}
-        name: Resume Build ${{ github.run_number }}
-        files: resume.pdf
-        body: |
-          Automated build of resume.pdf
-          
-          **Commit:** ${{ github.sha }}
-          **Date:** ${{ github.event.head_commit.timestamp }}
-          **Message:** ${{ github.event.head_commit.message }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

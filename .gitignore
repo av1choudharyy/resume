@@ -11,8 +11,8 @@
 *.bbl
 *.blg
 
-# PDF output (uncomment if you don't want to commit PDFs)
-# *.pdf
+# PDF output
+*.pdf
 
 # macOS
 .DS_Store
