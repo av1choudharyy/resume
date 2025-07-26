@@ -12,13 +12,44 @@ This is a LaTeX-based resume template using the Resumake Template 6 format. The 
 
 This project requires XeLaTeX to compile because it uses custom fonts.
 
-To build the resume:
+**Option 1: Using Docker (Recommended)**
+```bash
+./build.sh
+```
 
+**Option 2: Local XeLaTeX Installation**
 ```bash
 xelatex resume.tex
 ```
 
-### Installing XeLaTeX
+### Docker Build Script
+
+The `build.sh` script uses Docker to build the resume without requiring local LaTeX installation:
+
+```bash
+#!/bin/bash
+echo "Testing LaTeX build with Docker..."
+
+# Use the same image as GitHub Actions
+docker run --rm \
+    --platform linux/amd64 \
+    -v "$PWD":/github/workspace \
+    -w /github/workspace \
+    ghcr.io/xu-cheng/texlive-full:latest \
+    xelatex resume.tex
+
+if [ -f "resume.pdf" ]; then
+    echo "✅ Build successful! resume.pdf created."
+    ls -la resume.pdf
+else
+    echo "❌ Build failed!"
+    exit 1
+fi
+```
+
+Make the script executable: `chmod +x build.sh`
+
+### Installing XeLaTeX (Optional)
 
 #### macOS
 

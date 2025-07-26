@@ -36,12 +36,17 @@ sudo apt-get install texlive-xetex texlive-fonts-extra
 
 ### Building Locally
 
-To compile the resume:
+**Option 1: Using Docker (Recommended)**
+```bash
+./build.sh
+```
+
+**Option 2: Local XeLaTeX Installation**
 ```bash
 xelatex resume.tex
 ```
 
-This will generate `resume.pdf` in the current directory.
+Both methods will generate `resume.pdf` in the current directory.
 
 ### Online Compilation (No Installation Required)
 
@@ -69,6 +74,7 @@ You can also trigger builds manually from the GitHub Actions tab.
 ```
 .
 ├── resume.tex                          # Main resume document
+├── build.sh                            # Docker build script
 ├── config/
 │   ├── minimal-resume-config.tex       # Configuration loader
 │   ├── minimal-resume.sty              # Style definitions
@@ -84,6 +90,33 @@ You can also trigger builds manually from the GitHub Actions tab.
     ├── build-resume.yml                # Automated release builds
     └── build-simple.yml                # Simple artifact builds
 ```
+
+## Docker Build Script
+
+The `build.sh` script provides a Docker-based build environment that matches GitHub Actions:
+
+```bash
+#!/bin/bash
+echo "Testing LaTeX build with Docker..."
+
+# Use the same image as GitHub Actions
+docker run --rm \
+    --platform linux/amd64 \
+    -v "$PWD":/github/workspace \
+    -w /github/workspace \
+    ghcr.io/xu-cheng/texlive-full:latest \
+    xelatex resume.tex
+
+if [ -f "resume.pdf" ]; then
+    echo "✅ Build successful! resume.pdf created."
+    ls -la resume.pdf
+else
+    echo "❌ Build failed!"
+    exit 1
+fi
+```
+
+Make the script executable: `chmod +x build.sh`
 
 ## Customization
 
