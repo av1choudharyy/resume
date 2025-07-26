@@ -58,14 +58,13 @@
   \raggedright
   {\hrule height 0.5pt}
   \vspace{\sizefive}
-  \begin{addmargin}[\sizefive]{\sizefive}{
+  \begin{addmargin}[\sizefive]{\sizefive}
   {
   \fontsize{\sizethree}{\sizefour}\fontspec[Path = fonts/,LetterSpace=10]{Montserrat-Bold}
   \textbf{#1}
   }
   \vspace{\sizefour}
   {#2}
-  }
   \end{addmargin}
 }
 
@@ -111,7 +110,7 @@
 }
 
 \newcommand{\format}[2]{
-  \vspace{\sizefive}
+  \item \vspace{\sizefive}
   {\fontsize{\sizethree}{\sizethree}\fontspec[Path = fonts/]{CrimsonText-SemiBold} #1 :} % Bold label
   {\fontsize{\sizethree}{\sizethree}\fontspec[Path = fonts/]{CrimsonText-Regular} #2 \\} % Skills list
   \vspace{\sizefive}

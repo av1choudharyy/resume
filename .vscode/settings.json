@@ -1,0 +1,52 @@
+{
+  // LaTeX Workshop settings for XeLaTeX
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "-file-line-error",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "XeLaTeX",
+      "tools": [
+        "xelatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "XeLaTeX",
+  
+  // Auto build on save
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  
+  // PDF viewer settings
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.view.pdf.zoom": "page-width",
+  
+  // Auto clean auxiliary files
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  
+  // Files to watch for changes
+  "latex-workshop.latex.watch.files.ignore": [
+    "**/*.bbx",
+    "**/*.bst",
+    "**/*.cbx",
+    "**/*.cfg",
+    "**/*.clo",
+    "**/*.cnf",
+    "**/*.def",
+    "**/*.fmt",
+    "**/*.lbx",
+    "**/*.map",
+    "**/*.pfb",
+    "**/*.tfm",
+    "**/*.ttf",
+    "**/*.otf"
+  ]
+}
