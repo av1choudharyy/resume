@@ -1,0 +1,22 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# PDF output (uncomment if you don't want to commit PDFs)
+# *.pdf
+
+# macOS
+.DS_Store
+
+# Editor files
+*.swp
+*~

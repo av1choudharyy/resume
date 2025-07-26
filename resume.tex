@@ -1,0 +1,102 @@
+\documentclass[10pt]{article}
+\usepackage[english]{babel}
+\usepackage{xcolor}
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.5}
+\usepackage{hyperref}
+\input{config/minimal-resume-config}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=darkblue,
+}
+\begin{document}
+
+\begin{center}
+	{\fontsize{\sizeone}{\sizeone}\fontspec[Path = fonts/,LetterSpace=15]{Montserrat-Regular} ABHISHEK CHOUDHARY}
+	\\
+	\vspace{2mm}
+	{\fontsize{1em}{1em}\fontspec[Path = fonts/]{Montserrat-Light} 
+\href{mailto:choudharyabhishek2199@gmail.com}{choudharyabhishek2199@gmail.com} --  
+\href{tel:+918294817554}{+918294817554}
+}
+	\\
+	\vspace{4mm}
+	{\fontsize{0.95em}{1.2em}\fontspec[Path = fonts/]{CrimsonText-Regular}
+	Experienced software engineer with a proven track record of delivering high-impact solutions in fast-paced startup environments.\\
+	Passionate about building scalable systems and leading cross-functional teams to drive product innovation and business growth.
+	}
+\end{center}
+
+\chap{EXPERIENCE}{
+
+\job
+	{Headout}
+	{Mar 2025 – Present}
+	{Senior Software Engineer}
+	{Bangalore, IN}
+	{\begin{newitemize}
+        \format{Review \& Rating Project Management}{Took complete ownership of the review and rating project, designing optimized APIs and new user experiences for seamless review collection at scale across 780,000 users, increasing review submissions by 13\%.}
+
+        \format{Team Leadership \& Mentoring}{Mentored new interns and engineers to accelerate their learning curve and professional growth. Improved team dynamics through comprehensive code reviews and knowledge sharing, fostering a culture of high-quality development practices.}
+        \format{WhatsApp Integration \& Campaign Optimization}{Integrated WhatsApp APIs to deliver new user experiences via messaging campaigns, increasing booking rates by 7\% through targeted campaigns. Analyzed performance and user engagement using Mixpanel to optimize campaign effectiveness.}
+        
+        \format{Critical Bug Resolution \& Code Quality}{Rapidly resolved critical P0 bugs and high-priority P1 to improve turnaround times. Conducted thorough PR reviews for major releases, identifying and preventing bugs from reaching production environments.}
+
+        \format{UI Optimization \& Collaboration}{Collaborated with UX and PM to understand UI roadblocks, enhance component designs, and promote consistency, enabling the team to work more efficiently and reduce development time.}
+	\end{newitemize}}
+
+	\job
+	{Cimpress}
+	{Dec 2023 – Mar 2025}
+	{Software Engineer}
+	{Mumbai, IN}
+	{\begin{newitemize}
+		\format {UI Common Components}{Led an epic for analyzing and developing a strategy to create reusable UI components for the in-house Order Management System. Coordinated a subgroup to parallelize tasks, ensuring team alignment and streamlining component creation and deployment.}
+		\format{Postgres Query Optimization}{Optimized stored procedures for Postgres 15, improving query performance by 1.4x to 27x. Reduced query response times from 26 seconds to under 1 second by replacing CTEs with joins.}
+		\format{Order Management API Design \& Implementation}{Led an Epic with a subgroup to design and implement APIs for order creation, validation, rejection, cancellation and search, ensuring seamless integration and efficient execution across the entire flow.}
+		\format{Entity Traceability Epic}{Led an epic to design a traceability system, creating a database schema in DocumentDB for long-text and dynamic attribute search. Established entity relationships to enable real-time tracking of entity status across a distributed system.}
+		\format{Traceability Backend Integration}{Worked on integrating the traceability system with legacy systems by implementing integration wrappers, ensuring a smooth transition and graceful retirement of the old infrastructure.}
+	\end{newitemize}}
+
+	\job
+	{Piping Rock}
+	{Jan 2022 – Dec 2023}
+	{Software Developer}
+	{Bangalore, IN}
+	{\begin{newitemize}
+        \format{Pool Manager for Database Interaction}{Designed and developed a pool manager to efficiently handle database connections across multiple servers with varying access levels. This improved application load times by 20\%, as measured through Postman tests, by reusing database connections and reducing connection overhead.}
+        
+	\format{Warehouse Management System}{Designed and deployed a warehouse     management system with React and Node (AWS), optimizing bottle             ordering, manufacturing, and scheduling, leading to streamlined            processes and reduced operational costs.}
+
+        \format{Batch Scheduling Automation}{Automated batch scheduling with drag-and-drop functionality in React, improving operational efficiency and reducing labor costs by 33\%, as evaluated by the Planning Group Operations Manager.}
+        
+        \format{Custom ORM}{Created a custom ORM to handle SQL queries via JSON, streamlining business logic execution and preventing deadlocks with a single execution point for all queries.}
+        
+        \format{Microservice Project}{Led development of a WebSocket-based microservice with API Gateway and DynamoDB, improving real-time communication and boosting workflow efficiency by 1.3x through optimized server-client updates.}
+        
+        \format{UI Libraries}{Developed UI libraries for search and autocomplete with React hooks, integrated throttling and debouncing via custom hooks, and authored detailed technical documentation for implementation and integration.}
+	\end{newitemize}}
+
+}
+
+\chap{SKILLS}{
+	\begin{newitemize}
+		\format{Languages}{JavaScript, TypeScript, SQL, NoSQL, HTML, CSS}
+		\format{Frameworks/Libraries}{React.js, Node.js, Express.js, Next.js, Nest.js, Rollup}
+		\format{Databases}{MySQL, PostgreSQL, DocumentDB, DynamoDB, MongoDB, MsSQL}
+		\format{Tools}{Git, Github, Gitlab, Bitbucket, JIRA, Swagger, CI/CD}
+		\format{Architectures/Methodologies}{REST APIs, Microservices, Serverless Architecture, Event-Driven Architecture, Agile, Socket Programming, AWS CDK, Distributed Systems}
+		\format{Other Skills}{API Design \& Integration, Database Schema Design, Performance Optimization, Entity Relationship Mapping, UI Component Design, Cross-Team Collaboration, Test-driven development}
+	\end{newitemize}
+}
+
+\chap{EDUCATION}{
+
+	\school
+	{RNS Institute of Technology}
+	{2018 – 2022}
+	{Bachelor of Engineering in Information Science}
+	{Bangalore, IN}
+	{GPA: 8}
+}
+\end{document}
