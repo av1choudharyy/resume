@@ -12,6 +12,10 @@ on:
     branches: [ main, master ]
   workflow_dispatch:  # Allow manual trigger
 
+permissions:
+  contents: write
+  packages: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,11 +24,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: Cache Docker layers
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+    
+    - name: Pull and cache LaTeX Docker image
+      run: |
+        docker pull ghcr.io/xu-cheng/texlive-full:latest
+        docker tag ghcr.io/xu-cheng/texlive-full:latest texlive-cached
+    
     - name: Build LaTeX document
       uses: xu-cheng/latex-action@v3
       with:
         root_file: resume.tex
         compiler: xelatex
+        docker_image: texlive-cached
     
     - name: Upload PDF as artifact
       uses: actions/upload-artifact@v4
@@ -33,9 +54,13 @@ jobs:
         path: resume.pdf
         retention-days: 30
     
+    - name: Rename PDF for release
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      run: cp resume.pdf resume-v${{ github.run_number }}.pdf
+    
     - name: Create Release
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ github.run_number }}
         name: Resume v${{ github.run_number }}
@@ -44,5 +69,7 @@ jobs:
           
           Built from commit: ${{ github.sha }}
           Triggered by: ${{ github.event.head_commit.message }}
-        files: resume.pdf
-        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |
+          resume-v${{ github.run_number }}.pdf
+        make_latest: true
+        generate_release_notes: false
