@@ -32,3 +32,17 @@ jobs:
         name: resume-pdf
         path: resume.pdf
         retention-days: 30
+    
+    - name: Create Release
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ github.run_number }}
+        name: Resume v${{ github.run_number }}
+        body: |
+          Automated release of resume PDF
+          
+          Built from commit: ${{ github.sha }}
+          Triggered by: ${{ github.event.head_commit.message }}
+        files: resume.pdf
+        token: ${{ secrets.GITHUB_TOKEN }}
