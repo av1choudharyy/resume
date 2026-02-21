@@ -10,7 +10,7 @@ on:
       - '.github/workflows/build-resume.yml'
   pull_request:
     branches: [ main, master ]
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -19,45 +19,43 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-    
-    - name: Cache Docker layers
-      uses: actions/cache@v3
+
+    - name: Cache LaTeX Docker image
+      id: cache-texlive
+      uses: actions/cache@v4
       with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
-    
-    - name: Pull and cache LaTeX Docker image
+        path: /tmp/texlive-image.tar
+        key: texlive-full-${{ runner.os }}-2025-02
+
+    - name: Load or pull LaTeX Docker image
       run: |
-        docker pull ghcr.io/xu-cheng/texlive-full:latest
-        docker tag ghcr.io/xu-cheng/texlive-full:latest texlive-cached
-    
+        if [ -f /tmp/texlive-image.tar ]; then
+          echo "Cache hit — loading image from cache"
+          docker load -i /tmp/texlive-image.tar
+        else
+          echo "Cache miss — pulling image and saving for next run"
+          docker pull ghcr.io/xu-cheng/texlive-full:latest
+          docker save ghcr.io/xu-cheng/texlive-full:latest -o /tmp/texlive-image.tar
+        fi
+
     - name: Build LaTeX document
       uses: xu-cheng/latex-action@v3
       with:
         root_file: resume.tex
         compiler: xelatex
-        docker_image: texlive-cached
-    
+        docker_image: ghcr.io/xu-cheng/texlive-full:latest
+
     - name: Upload PDF as artifact
       uses: actions/upload-artifact@v4
       with:
         name: resume-pdf
         path: resume.pdf
         retention-days: 30
-    
-    - name: Rename PDF for release
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: cp resume.pdf resume-v${{ github.run_number }}.pdf
-    
+
     - name: Create Release
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: softprops/action-gh-release@v2
@@ -66,10 +64,9 @@ jobs:
         name: Resume v${{ github.run_number }}
         body: |
           Automated release of resume PDF
-          
+
           Built from commit: ${{ github.sha }}
           Triggered by: ${{ github.event.head_commit.message }}
-        files: |
-          resume-v${{ github.run_number }}.pdf
+        files: resume.pdf
         make_latest: true
         generate_release_notes: false
